@@ -1,4 +1,4 @@
-<h2>Template: <small>Dinamicos</small></h2>
+<h2>Reactive: <small>Dinamicos</small></h2>
 <hr>
 <form (ngSubmit)="guardar()" autocomplete="off" [formGroup]="miFormulario">
     <!--Nombre-->
@@ -14,8 +14,8 @@
         <label class="col-sm-3 col-form-label">Agregar</label>
         <div class="col-sm-9">
             <div class="input-group">
-                <input class="form-control" placeholder="Agregar favorito" name="nuevoJuego">
-                <button class="btn btn-outline-primary" type="button">
+                <input class="form-control" placeholder="Agregar favorito" [formControl]="nuevoFavorito" (keyup.enter)="agregarFavorito()">
+                <button class="btn btn-outline-primary" type="button" (click)="agregarFavorito()">
               Agregar
              </button>
             </div>
@@ -27,7 +27,7 @@
         <div class="col-sm-9" formArrayName="favorito">
             <div class="input-group mb-1" *ngFor="let favorito of favoritosArr.controls; let i = index">
                 <input class="form-control" [formControlName]="i">
-                <button class="btn btn-outline-danger" type="button">
+                <button class="btn btn-outline-danger" type="button" (click)="borrar(i)">
                     Eliminar
               </button>
             </div>
@@ -49,6 +49,9 @@
 <br>
 <span>Value</span>
 <pre>{{miFormulario.value | json}}</pre>
-
-<!-- <span>Persona</span>
-<pre>{{persona|json}}</pre> -->
+<br>
+<span>Agregar Juego</span>
+<pre>{{nuevoFavorito.valid}}</pre>
+<br>
+<span>Valor Juego</span>
+<pre>{{nuevoFavorito.value}}</pre>
