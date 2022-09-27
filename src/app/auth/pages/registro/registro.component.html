@@ -18,8 +18,8 @@
                 <label class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
                     <input type="email" class="form-control" placeholder="Email del usuario" formControlName="email">
-                    <span class="form-text text-danger" *ngIf="campoNoValido('email')">
-                      El correo es obligatorio
+                    <span class="form-text text-danger">
+                      {{emailErrorMsg('email')}}
                     </span>
                 </div>
             </div>
@@ -37,19 +37,25 @@
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="Password del usuario">
+                    <input type="password" class="form-control" placeholder="Password del usuario" formControlName="password">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('password')">
+                      la constraseña debe ser mayor de 6 caracteres
+                    </span>
                 </div>
             </div>
             <!--Password 2-->
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Confirmar</label>
                 <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="Confirmar la contraseña">
+                    <input type="password" class="form-control" placeholder="Confirmar la contraseña" formControlName="password2">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('password2')">
+                      Las contraseñas deben ser iguales
+                    </span>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-primary float-end" type="submit" (click)="submitForm()">
+                    <button class="btn btn-primary float-end" type="submit" (click)="submitForm()" [disabled]="miFormulario.pending">
                   Guardar
                 </button>
                 </div>
@@ -59,9 +65,17 @@
 </div>
 
 <h2>Form Valid:{{miFormulario.valid}}</h2>
+<h2>Form Status:{{miFormulario.status}}</h2>
+<h2>Form Pending:{{miFormulario.pending}}</h2>
+<h5>Form Errors</h5>
+<pre>{{miFormulario.errors | json}}</pre>
 <h5>Nombre</h5>
 <pre>{{miFormulario.controls.nombre.errors | json }}</pre>
 <h5>Email</h5>
 <pre>{{miFormulario.controls.email.errors  | json }}</pre>
 <h5>Username</h5>
 <pre>{{miFormulario.controls.username.errors  | json }}</pre>
+<h5>password</h5>
+<pre>{{miFormulario.controls.password.errors  | json }}</pre>
+<h5>confirmar</h5>
+<pre>{{miFormulario.controls.password2.errors  | json }}</pre>
